@@ -15,17 +15,17 @@
 - [x] Prettier
 - [x] Storybook
 - [ ] MSW
-- [ ] ~~Cypress~~
+- [ ] ~~Cypress~~(NOT including because considering used in monorepo)
 - [ ] next/jest
 - [ ] testing-library
-- [x] Sentry
+- [x] Sentry(NOT including credentials)
+- [ ] ~~husky~~(NOT including because considering used in monorepo)
+- [ ] ~~lint-staged~~(NOT including because considering used in monorepo)
 - [ ] Statsig
 - [x] dayjs
 - [x] clsx
 - [ ] Google Tag Manager
 - [ ] Vercel or Fargate or Amplify or App Runner or Serverless Next.js
-
-This template don't include husky and lint-staged considering when used at monorepo.
 
 ### Reference
 

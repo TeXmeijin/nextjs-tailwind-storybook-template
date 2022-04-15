@@ -1,13 +1,13 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-import { UnstyledLink } from ".";
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { UnStyledLink } from '.';
 
 export default {
-  component: UnstyledLink,
-} as ComponentMeta<typeof UnstyledLink>;
+  component: UnStyledLink,
+} as ComponentMeta<typeof UnStyledLink>;
 
-export const Default: ComponentStoryObj<typeof UnstyledLink> = {
+export const Default: ComponentStoryObj<typeof UnStyledLink> = {
   args: {
-    href: "/",
-    children: "UnstyledLink",
+    href: '/',
+    children: 'UnstyledLink',
   },
 };
