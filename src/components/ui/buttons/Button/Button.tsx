@@ -23,12 +23,12 @@ export const Button: FC<Partial<PropsWithChildren<Props>>> = ({
   return (
     <button
       className={clsx(
-        'py-2 px-4 rounded transition-colors flex items-center',
+        'py-2 px-4 rounded transition-colors flex items-center justify-center',
+        'text-white',
         color === 'primary' &&
           (variant === 'default'
             ? `bg-primary-600 hover:bg-primary-500 disabled:bg-primary-200`
             : `text-primary-600 border border-primary-500 disabled:text-primary-200`),
-        'text-white',
         isFullWidth && 'block w-full',
       )}
       disabled={isLoading || isDisabled}

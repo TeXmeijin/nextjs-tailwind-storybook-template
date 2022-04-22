@@ -7,7 +7,7 @@ export default {
 
 export const Default: ComponentStoryObj<typeof NextImage> = {
   args: {
-    src: 'https://loremflickr.com/320/240/girl',
+    src: 'https://loremflickr.com/320/240/cat',
     width: 320,
     height: 240,
   },
