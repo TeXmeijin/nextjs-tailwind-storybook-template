@@ -3,6 +3,12 @@ module.exports = {
   theme: {
     colors: {
       white: '#fdfdfd',
+      body: '#333',
+      gray: {
+        shadow: '#e5e5e5',
+        border: '#d5d5d5',
+        notice: '#777', // ここを維持
+      },
       primary: {
         100: '#bdcceb',
         200: '#87a4df',

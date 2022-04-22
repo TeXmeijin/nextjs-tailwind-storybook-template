@@ -1,26 +1,25 @@
 import Downshift from "downshift";
 import clsx from "clsx";
+import {Input} from "@/components/ui/forms/Input";
 
 type Props<T extends {id: number|string} & Record<string, any>> = {
   items: T[],
   itemToString: (arg: T) => string
   placeholder: string
+  label?: string
+  onChange?: (arg: T | null) => void
+  customItemComponent?: (props: {item: T}) => JSX.Element
 }
 
 type Component = {
   <T extends {id: number|string} & Record<string, any>>(props: Props<T>): JSX.Element
 }
+type ArrayItem<T> = T extends Array<infer U> ? U : never
 
-export const AutoCompleteSelect: Component = ({items, itemToString, placeholder}) => {
+export const AutoCompleteSelect: Component = ({items, itemToString, placeholder, label, onChange, customItemComponent}) => {
   return (
-    <Downshift
-      onChange={(selection) =>
-        alert(
-          selection
-            ? `You selected ${(itemToString)(selection)}`
-            : 'selection cleared',
-        )
-      }
+    <Downshift<ArrayItem<typeof items>>
+      onChange={onChange}
       itemToString={((item) => item ? itemToString(item) : '')}
     >
       {({
@@ -36,10 +35,11 @@ export const AutoCompleteSelect: Component = ({items, itemToString, placeholder}
           highlightedIndex,
         }) => (
         <div>
-          <label {...getLabelProps()}>Find a Star Wars character</label>
+          {
+            label && <label {...getLabelProps()}>{label}</label>
+          }
           <div className={'relative w-full'}>
-            <input
-              className={'p-1 p-2 rounded border w-full block'}
+            <Input
               {...getInputProps({
                 isOpen,
                 placeholder,
@@ -48,12 +48,13 @@ export const AutoCompleteSelect: Component = ({items, itemToString, placeholder}
           </div>
           <div className={'relative'}>
             <ul className={
-              clsx('absolute mt-0 p-0 w-full max-h-60 overflow-y-auto overflow-x-hidden outline-0 rounded shadow', isOpen && 'border-primary-100 border')
+              clsx('absolute mt-0 p-0 w-full max-h-60 overflow-y-auto overflow-x-hidden outline-0 rounded shadow', isOpen && 'border-gray-border border')
             } {...getMenuProps({open: isOpen})}>
               {isOpen
                 ? items.map((item, index) => (
                   <div
                     key={item.id}
+                    className={'py-1 px-2'}
                     {...getItemProps({
                       item,
                       index,
@@ -61,7 +62,7 @@ export const AutoCompleteSelect: Component = ({items, itemToString, placeholder}
                       isSelected: selectedItem === item,
                     })}
                   >
-                    {(itemToString)(item)}
+                    {customItemComponent ? customItemComponent({item}) : (itemToString)(item)}
                   </div>
                 ))
                 : null}
