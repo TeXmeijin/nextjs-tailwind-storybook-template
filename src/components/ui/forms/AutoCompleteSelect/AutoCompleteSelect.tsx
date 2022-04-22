@@ -1,14 +1,17 @@
-import type { FC } from 'react';
 import Downshift from "downshift";
+import clsx from "clsx";
 
-type Props = {
-
+type Props<T extends {id: number|string} & Record<string, any>> = {
+  items: T[],
+  itemToString: (arg: T) => string
+  placeholder: string
 }
 
-const items = [{name: 'test', id: 1}]
-const itemToString = ((item: {name: string} | null) => item ? item.name : '')
+type Component = {
+  <T extends {id: number|string} & Record<string, any>>(props: Props<T>): JSX.Element
+}
 
-export const AutoCompleteSelect: FC<Props> = () => {
+export const AutoCompleteSelect: Component = ({items, itemToString, placeholder}) => {
   return (
     <Downshift
       onChange={(selection) =>
@@ -18,7 +21,7 @@ export const AutoCompleteSelect: FC<Props> = () => {
             : 'selection cleared',
         )
       }
-      itemToString={itemToString}
+      itemToString={((item) => item ? itemToString(item) : '')}
     >
       {({
           getLabelProps,
@@ -34,17 +37,19 @@ export const AutoCompleteSelect: FC<Props> = () => {
         }) => (
         <div>
           <label {...getLabelProps()}>Find a Star Wars character</label>
-          <div className={'absolute w-full'}>
+          <div className={'relative w-full'}>
             <input
               className={'p-1 p-2 rounded border w-full block'}
               {...getInputProps({
                 isOpen,
-                placeholder: 'Enter a name',
+                placeholder,
               })}
             />
           </div>
           <div className={'relative'}>
-            <ul className={'absolute mt-0 p-0 w-full max-h-60 overflow-y-auto overflow-x-hidden outline-0 rounded shadow border-primary-100 border'} {...getMenuProps({open: isOpen})}>
+            <ul className={
+              clsx('absolute mt-0 p-0 w-full max-h-60 overflow-y-auto overflow-x-hidden outline-0 rounded shadow', isOpen && 'border-primary-100 border')
+            } {...getMenuProps({open: isOpen})}>
               {isOpen
                 ? items.map((item, index) => (
                   <div
