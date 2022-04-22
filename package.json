@@ -17,6 +17,7 @@
     "@sentry/nextjs": "^6.19.6",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.0",
+    "downshift": "^6.1.7",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
